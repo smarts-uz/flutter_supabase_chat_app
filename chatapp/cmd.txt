@@ -9,3 +9,4 @@ flutter run
 /// install dependencies
 flutter pub add supabase_flutter
 flutter pub add timeago
+flutter pub add flutter_bloc
