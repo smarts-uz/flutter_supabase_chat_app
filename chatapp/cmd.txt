@@ -10,3 +10,5 @@ flutter run
 flutter pub add supabase_flutter
 flutter pub add timeago
 flutter pub add flutter_bloc
+flutter pub add bloc
+flutter pub add meta

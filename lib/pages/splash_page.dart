@@ -6,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Page to redirect users to the appropriate page depending on the initial auth state
 class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({super.key});
 
   @override
   SplashPageState createState() => SplashPageState();
@@ -24,21 +24,32 @@ class SplashPageState extends State<SplashPage> {
     await Future.delayed(Duration.zero);
 
     try {
-      final session =
-      await SupabaseAuth.instance.initialSession;
+      final session = await SupabaseAuth.instance.initialSession;
       if (session == null) {
-        Navigator.of(context).pushAndRemoveUntil(
-            RegisterPage.route(), (_) => false);
+        if (context.mounted) {
+          Navigator.of(context).pushAndRemoveUntil(
+            RegisterPage.route(),
+            (_) => false,
+          );
+        }
       } else {
-        Navigator.of(context).pushAndRemoveUntil(
-            RoomsPage.route(), (_) => false);
+        if (context.mounted) {
+          Navigator.of(context).pushAndRemoveUntil(
+            RoomsPage.route(),
+            (_) => false,
+          );
+        }
       }
     } catch (_) {
-      context.showErrorSnackBar(
-        message: 'Error occurred during session refresh',
-      );
-      Navigator.of(context).pushAndRemoveUntil(
-          RegisterPage.route(), (_) => false);
+      if (context.mounted) {
+        context.showErrorSnackBar(
+          message: 'Error occurred during session refresh',
+        );
+        Navigator.of(context).pushAndRemoveUntil(
+          RegisterPage.route(),
+          (_) => false,
+        );
+      }
     }
   }
 

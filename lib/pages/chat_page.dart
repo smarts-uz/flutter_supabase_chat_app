@@ -11,7 +11,7 @@ import 'package:timeago/timeago.dart';
 ///
 /// Displays chat bubbles as a ListView and TextField to enter new chat.
 class ChatPage extends StatelessWidget {
-  const ChatPage({Key? key}) : super(key: key);
+  const ChatPage({super.key});
 
   static Route<void> route(String roomId) {
     return MaterialPageRoute(
@@ -54,8 +54,8 @@ class ChatPage extends StatelessWidget {
               ],
             );
           } else if (state is ChatEmpty) {
-            return Column(
-              children: const [
+            return const Column(
+              children: [
                 Expanded(
                   child: Center(
                     child: Text('Start your conversation now :)'),

@@ -3,15 +3,16 @@ import 'package:chat_app/utils/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   static Route<void> route() {
     return MaterialPageRoute(
-        builder: (context) => const LoginPage());
+      builder: (context) => const LoginPage(),
+    );
   }
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -29,10 +30,13 @@ class _LoginPageState extends State<LoginPage> {
         password: _passwordController.text,
       );
     } on AuthException catch (error) {
-      context.showErrorSnackBar(message: error.message);
+      if (context.mounted) {
+        context.showErrorSnackBar(message: error.message);
+      }
     } catch (_) {
-      context.showErrorSnackBar(
-          message: unexpectedErrorMessage);
+      if (context.mounted) {
+        context.showErrorSnackBar(message: unexpectedErrorMessage);
+      }
     }
     if (mounted) {
       setState(() {
@@ -57,15 +61,13 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           TextFormField(
             controller: _emailController,
-            decoration:
-            const InputDecoration(labelText: 'Email'),
+            decoration: const InputDecoration(labelText: 'Email'),
             keyboardType: TextInputType.emailAddress,
           ),
           spacer,
           TextFormField(
             controller: _passwordController,
-            decoration: const InputDecoration(
-                labelText: 'Password'),
+            decoration: const InputDecoration(labelText: 'Password'),
             obscureText: true,
           ),
           spacer,
