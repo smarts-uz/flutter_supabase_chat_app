@@ -57,7 +57,8 @@ class ChatCubit extends Cubit<ChatState> {
 
     try {
       await supabase.from('messages').insert(message.toMap());
-    } catch (_) {
+    } catch (e) {
+      print(e.toString());
       emit(ChatError('Error submitting message.'));
       _messages.removeWhere((message) => message.id == 'new');
       emit(ChatLoaded(_messages));

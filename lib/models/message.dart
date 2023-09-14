@@ -37,7 +37,6 @@ class Message {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'profile_id': profileId,
       'content': content,
       'created_at': createdAt.toIso8601String(),
