@@ -1,0 +1,11 @@
+
+/// creating a flutter project
+flutter create chat_app
+
+/// entering project directory and running the application
+cd chat_app
+flutter run
+
+/// install dependencies
+flutter pub add supabase_flutter
+flutter pub add timeago
