@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:chat_app/pages/chat_page.dart';
 import 'package:chat_app/utils/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({Key? key}) : super(key: key);
 
   static Route<void> route() {
-    return MaterialPageRoute(builder: (context) => const LoginPage());
+    return MaterialPageRoute(
+        builder: (context) => const LoginPage());
   }
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -28,20 +28,11 @@ class _LoginPageState extends State<LoginPage> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      if (context.mounted) {
-        Navigator.of(context).pushAndRemoveUntil(
-          ChatPage.route(),
-          (route) => false,
-        );
-      }
     } on AuthException catch (error) {
-      if (context.mounted) {
-        context.showErrorSnackBar(message: error.message);
-      }
+      context.showErrorSnackBar(message: error.message);
     } catch (_) {
-      if (context.mounted) {
-        context.showErrorSnackBar(message: unexpectedErrorMessage);
-      }
+      context.showErrorSnackBar(
+          message: unexpectedErrorMessage);
     }
     if (mounted) {
       setState(() {
@@ -66,16 +57,18 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           TextFormField(
             controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
+            decoration:
+            const InputDecoration(labelText: 'Email'),
             keyboardType: TextInputType.emailAddress,
           ),
-          formSpacer,
+          spacer,
           TextFormField(
             controller: _passwordController,
-            decoration: const InputDecoration(labelText: 'Password'),
+            decoration: const InputDecoration(
+                labelText: 'Password'),
             obscureText: true,
           ),
-          formSpacer,
+          spacer,
           ElevatedButton(
             onPressed: _isLoading ? null : _signIn,
             child: const Text('Login'),
